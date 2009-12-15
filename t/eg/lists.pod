@@ -1,0 +1,77 @@
+=for list
+* foo
+* bar
+* baz
+
+Back to normal Pod.
+
+---------------------------
+
+=begin list
+
+* foo
+* bar
+* baz
+
+=end list
+
+--------------------------
+
+=begin list
+
+* foo
+
+* bar
+
+* baz
+
+=end list
+
+--------------------------
+
+=for list
+1. foo
+2. bar
+3. baz
+
+=for list
+1. foo
+1. bar
+1. baz
+
+=for list
+1. foo
+    Foo is an important aspect of foo.  It really is.
+2. bar
+3. baz
+    Baz is also important, but compared to Foo, Baz isn't even Bar.
+
+=begin list
+
+1. foo
+
+    Foo is an important aspect of foo.
+    
+2. bar
+
+    Bar is also important, and takes options:
+    
+    = height
+    
+       It's supplied in in pixels.
+
+    = width
+    
+       It's supplied in inches.
+       
+    And those are all of them.
+    
+3. baz
+
+    Reasons why Baz is important:
+
+    * it's delicious like L<Net::Delicious>
+    * it's nutritious
+    * it's seditious
+
+
