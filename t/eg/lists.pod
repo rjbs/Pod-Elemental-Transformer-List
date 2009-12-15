@@ -67,25 +67,25 @@ Baz is also important, but compared to Foo, Baz isn't even Bar.
 1. foo
 
 Foo is an important aspect of foo.
-    
+
 2. bar
 
 Bar is also important, and takes options:
-    
+
 =begin list
 
 = height
-    
+
 It's supplied in in pixels.
 
 = width
-    
+
 It's supplied in inches.
 
 And those are all of them.
 
 =end list
-    
+
 3. baz
 
 Reasons why Baz is important:
@@ -103,28 +103,28 @@ Fellow with appeal.
 
 --------------------------
 
-# PROBABLY OVERKILL:
+# OVERKILL, BUT AMUSING TO LOOK AT:
 
 =begin list
 
 1. foo
 
     Foo is an important aspect of foo.
-    
+
 2. bar
 
     Bar is also important, and takes options:
-    
+
     = height
-    
+
        It's supplied in in pixels.
 
     = width
-    
+
        It's supplied in inches.
-       
+
     And those are all of them.
-    
+
 3. baz
 
     Reasons why Baz is important:
