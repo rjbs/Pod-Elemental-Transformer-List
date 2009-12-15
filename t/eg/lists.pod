@@ -48,14 +48,14 @@ Back to normal Pod.
 
 --------------------------
 
-It's important to realize that in this example, "1. foo" makes the "=item" and
-then a standalone "foo" paragraph.  The rest of the content until the next
+It's important to realize that in this example, C<1. foo> makes the C<=item>
+and then a standalone "foo" paragraph.  The rest of the content until the next
 bullet becomes a single paragraph.
 
 =for list
 1. foo
-Foo is an important aspect of foo.  It really is.
-It's hard to explain just how important.
+Foo is an important aspect of L<Foo::Bar>.  It really is.
+It's hard to explain I<just> how important.
 2. bar
 3. baz
 Baz is also important, but compared to Foo, Baz isn't even Bar.
