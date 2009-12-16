@@ -1,13 +1,52 @@
+#!perl
+use strict;
+use warnings;
+
+use Test::More 'no_plan';
+
+use Pod::Elemental;
+use Pod::Elemental::Transformer::Pod5;
+use Pod::Elemental::Transformer::List;
+
+my $pod5 = Pod::Elemental::Transformer::Pod5->new;
+my $list = Pod::Elemental::Transformer::List->new;
+
+sub list_is {
+  my ($input, $want) = @_;
+  my $doc = Pod::Elemental->read_string($input);
+  $pod5->transform_node($doc);
+  $list->transform_node($doc);
+  is($doc->as_pod_string, $want);
+}
+
+list_is(<<'IN_POD', <<'OUT_POD');
 
 =for list
 * foo
 * bar
 * baz
 
-Back to normal Pod.
+IN_POD
 
----------------------------
+=over 4
 
+=item *
+
+foo
+
+=item *
+
+bar
+
+=item *
+
+baz
+
+=back
+
+OUT_POD
+
+__END__
 =begin list
 
 * foo
