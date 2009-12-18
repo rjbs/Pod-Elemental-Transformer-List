@@ -1,6 +1,7 @@
 package Pod::Elemental::Transformer::List;
 use Moose;
 with 'Pod::Elemental::Transformer';
+# ABSTRACT: transform
 
 use Pod::Elemental::Element::Pod5::Command;
 use Pod::Elemental::Selectors -all;

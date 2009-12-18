@@ -1,6 +1,12 @@
 #!perl
+package X;
 use strict;
 use warnings;
+
+# HOW TO READ THESE TESTS:
+#   All the list_id tests get a big string; it's two parts, divided by a ------
+#   line.  The first half is what you write.  The second part is what it's
+#   transformed to before publishing.
 
 use Test::More 'no_plan';
 use Test::Differences;

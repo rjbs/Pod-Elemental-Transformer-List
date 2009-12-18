@@ -1,4 +1,6 @@
 
+package Stupid;
+
 =over 4
 
 =item 1.
