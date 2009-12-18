@@ -7,6 +7,11 @@ use Pod::Elemental::Selectors -all;
 
 use namespace::autoclean;
 
+has format_name => (
+  is => 'ro',
+  default => 'list',
+);
+
 sub transform_node {
   my ($self, $node) = @_;
 
@@ -22,9 +27,10 @@ sub __is_xformable {
   my ($self, $para) = @_;
 
   return unless $para->isa('Pod::Elemental::Element::Pod5::Region')
-         and $para->format_name eq 'list';
+         and $para->format_name eq $self->format_name;
 
-  confess("list regions must be pod (=begin :list)") unless $para->is_pod;
+  confess("list regions must be pod (=begin :" . $self->format_name . ")")
+    unless $para->is_pod;
   
   return 1;
 }
