@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use Test::More 'no_plan';
+use Test::Differences;
 
 use Pod::Elemental;
 use Pod::Elemental::Transformer::Pod5;
@@ -12,22 +13,24 @@ my $pod5 = Pod::Elemental::Transformer::Pod5->new;
 my $list = Pod::Elemental::Transformer::List->new;
 
 sub list_is {
-  my ($input, $want) = @_;
+  my ($comment, $string) = @_;
+  my ($input, $want) = split /^-{10,}$/m, $string;
+  $want =~ s/\A\n//; # stupid
+
+  $input = "=pod\n\n$input";
+  $want  = "=pod\n\n$want\n=cut\n";
   my $doc = Pod::Elemental->read_string($input);
   $pod5->transform_node($doc);
   $list->transform_node($doc);
-  is($doc->as_pod_string, $want);
+  eq_or_diff($doc->as_pod_string, $want, $comment);
 }
 
-list_is(<<'IN_POD', <<'OUT_POD');
-
-=for list
+list_is tight_bullet_for => <<'END_POD';
+=for :list
 * foo
 * bar
 * baz
-
-IN_POD
-
+--------------------------------------
 =over 4
 
 =item *
@@ -43,21 +46,36 @@ bar
 baz
 
 =back
+END_POD
 
-OUT_POD
-
-__END__
-=begin list
+list_is tight_bullet => <<'END_POD';
+=begin :list
 
 * foo
 * bar
 * baz
 
-=end list
+=end :list
+------------------------------------
+=over 4
 
---------------------------
+=item *
 
-=begin list
+foo
+
+=item *
+
+bar
+
+=item *
+
+baz
+
+=back
+END_POD
+
+list_is loose_bullet => <<'END_POD';
+=begin :list
 
 * foo
 
@@ -65,44 +83,109 @@ __END__
 
 * baz
 
-=end list
+=end :list
+------------------------------------
+=over 4
 
---------------------------
+=item *
 
-=for list
+foo
+
+=item *
+
+bar
+
+=item *
+
+baz
+
+=back
+END_POD
+
+
+list_is tight_num => <<'END_POD';
+=for :list
 1. foo
 2. bar
 3. baz
+------------------------------------
+=over 4
 
-=for list
+=item 1
+
+foo
+
+=item 2
+
+bar
+
+=item 3
+
+baz
+
+=back
+END_POD
+
+list_is tight_num_repeated => <<'END_POD';
+=for :list
 1. foo
 1. bar
 1. baz
+------------------------------------
+=over 4
 
-=for list
-1. foo
-   Foo is an important aspect of foo.  It really is.
-2. bar
-3. baz
-   Baz is also important, but compared to Foo, Baz isn't even Bar.
+=item 1
 
---------------------------
+foo
 
-It's important to realize that in this example, C<1. foo> makes the C<=item>
-and then a standalone "foo" paragraph.  The rest of the content until the next
-bullet becomes a single paragraph.
+=item 2
 
-=for list
+bar
+
+=item 3
+
+baz
+
+=back
+END_POD
+
+# It's important to realize that in this example, C<1. foo> makes the C<=item>
+# and then a standalone "foo" paragraph.  The rest of the content until the
+# next bullet becomes a single paragraph.
+
+list_is num_with_paras => <<'END_POD';
+=for :list
 1. foo
 Foo is an important aspect of L<Foo::Bar>.  It really is.
 It's hard to explain I<just> how important.
 2. bar
 3. baz
 Baz is also important, but compared to Foo, Baz isn't even Bar.
+------------------------------------
+=over 4
 
---------------------------
+=item 1
 
-=begin list
+foo
+
+Foo is an important aspect of L<Foo::Bar>.  It really is.
+It's hard to explain I<just> how important.
+
+=item 2
+
+bar
+
+=item 3
+
+baz
+
+Baz is also important, but compared to Foo, Baz isn't even Bar.
+
+=back
+END_POD
+
+list_is nested_complex => <<'END_POD';
+=begin :list
 
 1. foo
 
@@ -112,7 +195,7 @@ Foo is an important aspect of foo.
 
 Bar is also important, and takes options:
 
-=begin list
+=begin :list
 
 = height
 
@@ -124,53 +207,86 @@ It's supplied in inches.
 
 And those are all of them.
 
-=end list
+=end :list
 
 3. baz
 
 Reasons why Baz is important:
 
-=for list
+=for :list
 * it's delicious like L<Net::Delicious>
 * it's nutritious
 * it's seditious
 
-=for list
+=for :list
 = bananas
 Yellow with a peel.
 = Banderas
 Fellow with appeal.
 
---------------------------
+=end :list
+------------------------------------
+=over 4
 
-# OVERKILL, BUT AMUSING TO LOOK AT:
+=item 1
 
-=begin list
+foo
 
-1. foo
+Foo is an important aspect of foo.
 
-    Foo is an important aspect of foo.
+=item 2
 
-2. bar
+bar
 
-    Bar is also important, and takes options:
+Bar is also important, and takes options:
 
-    = height
+=over 4
 
-       It's supplied in in pixels.
+=item height
 
-    = width
+It's supplied in in pixels.
 
-       It's supplied in inches.
+=item width
 
-    And those are all of them.
+It's supplied in inches.
 
-3. baz
+And those are all of them.
 
-    Reasons why Baz is important:
+=back
 
-    * it's delicious like L<Net::Delicious>
-    * it's nutritious
-    * it's seditious
+=item 3
 
+baz
 
+Reasons why Baz is important:
+
+=over 4
+
+=item *
+
+it's delicious like L<Net::Delicious>
+
+=item *
+
+it's nutritious
+
+=item *
+
+it's seditious
+
+=back
+
+=over 4
+
+=item bananas
+
+Yellow with a peel.
+
+=item Banderas
+
+Fellow with appeal.
+
+=back
+
+=back
+END_POD
