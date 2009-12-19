@@ -50,7 +50,8 @@ and markers.  Here's a demonstrative example:
 
 The above is equivalent to 
 
-  =for :list
+  =begin :list
+
   * Doe
   a deer,
   a female deer
@@ -58,6 +59,8 @@ The above is equivalent to
   a drop of golden sun
   or maybe it's a golden
   drop of sun
+
+  =end :list
 
 It will be transformed into:
 
