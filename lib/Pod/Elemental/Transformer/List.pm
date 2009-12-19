@@ -86,9 +86,9 @@ made into one paragraph, which will become the text of the bullet point when
 rendered.  (Yeah, Pod is weird.)  All subsequent lines without markers will be
 kept together as one paragraph.
 
-Asterisks mark off bullet list items.  Numbered lists are marked off with "1."
-(or any number followed by a dot).  Equals signs mark off definition lists.
-The markers must be followed by a space.
+Asterisks mark off bullet list items.  Numbered lists are marked off with
+"C<1.>" (or any number followed by a dot).  Equals signs mark off definition
+lists.  The markers must be followed by a space.
 
 Here's a numbered list:
 
