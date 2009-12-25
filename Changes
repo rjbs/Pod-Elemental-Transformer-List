@@ -1,4 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.093580  2009-12-24 20:57:22 America/New_York
           first release!  already used in limited cases privately
