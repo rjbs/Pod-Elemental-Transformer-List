@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          Bump required version of Pod::Elemental so that tests pass.
 
 0.093580  2009-12-24 20:57:22 America/New_York
           first release!  already used in limited cases privately
