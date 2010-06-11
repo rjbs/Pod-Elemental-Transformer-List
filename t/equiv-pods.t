@@ -54,6 +54,16 @@ baz
 =back
 END_POD
 
+list_is empty_list => <<'END_POD';
+=begin :list
+
+=end :list
+--------------------------------------
+=over 4
+
+=back
+END_POD
+
 list_is tight_bullet => <<'END_POD';
 =begin :list
 

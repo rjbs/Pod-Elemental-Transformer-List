@@ -1,5 +1,6 @@
 package Pod::Elemental::Transformer::List;
 use Moose;
+use Pod::Elemental::Transformer 0.101620;
 with 'Pod::Elemental::Transformer';
 # ABSTRACT: transform :list regions into =over/=back to save typing
 
