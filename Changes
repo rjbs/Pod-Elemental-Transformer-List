@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.101620  2010-06-11 19:41:12 America/New_York
+
 0.101610  2010-06-10 21:47:19 America/New_York
           Bump required version of Pod::Elemental so that tests pass.
 
