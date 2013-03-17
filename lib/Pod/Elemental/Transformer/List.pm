@@ -87,6 +87,25 @@ It will be transformed into:
   or maybe it's a golden
   drop of sun
 
+Which renders as:
+
+=over 4
+
+=item *
+
+Doe
+
+a deer,
+a female deer
+
+=item *
+
+Ray
+
+a drop of golden sun
+or maybe it's a golden
+drop of sun
+
 In other words: the B<C<*>> indicates a new bullet.  The rest of the line is
 made into one paragraph, which will become the text of the bullet point when
 rendered.  (Yeah, Pod is weird.)  All subsequent lines without markers will be
@@ -105,6 +124,25 @@ Here's a numbered list:
 
 The choice of number doesn't matter.  The generated Pod C<=item> commands will
 start with 1 and increase by 1 each time.
+
+This is rendered as:
+
+=over 4
+
+=item 1.
+
+bell
+
+=item 2.
+
+book
+
+=item 3.
+
+candle
+
+=back
+
 
 Definition lists are unusual in that the text on the line after a item marker
 will be used as the bullet, rather than the next paragraph.  So this input:
@@ -132,6 +170,16 @@ Will become the following output Pod:
   There are more benefits than can be listed here
 
   =back
+
+Which is rendered as:
+
+=over 4
+
+=item benefits
+
+There are more benefits than can be listed here
+
+=back
 
 If you want to nest lists, you have to make the outer list a begin/end region,
 like this:
