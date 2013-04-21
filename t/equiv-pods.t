@@ -200,9 +200,7 @@ Baz is also important, but compared to Foo, Baz isn't even Bar.
 =back
 END_POD
 
-TODO: {
-  local $TODO = '[rt.cpan.org #84488]';
-  list_is def_with_custom_indent => <<'END_POD';
+list_is def_with_custom_indent => <<'END_POD';
 =begin :list :over<6>
 
 = TLA
@@ -232,7 +230,6 @@ And so on and so forth.
 
 =back
 END_POD
-}
 
 list_is nested_complex => <<'END_POD';
 =begin :list
@@ -341,9 +338,7 @@ Fellow with appeal.
 =back
 END_POD
 
-TODO: {
-  local $TODO = '[rt.cpan.org #84488]';
-  list_is nested_complex_with_custom_indent => <<'END_POD';
+list_is nested_complex_with_custom_indent => <<'END_POD';
 =begin :list :over<3>
 
 1. foo
@@ -449,4 +444,3 @@ Fellow with appeal.
 
 =back
 END_POD
-}
