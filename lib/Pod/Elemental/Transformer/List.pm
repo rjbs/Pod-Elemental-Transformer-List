@@ -177,7 +177,7 @@ sub transform_node {
   for my $i (reverse(0 .. $#{ $node->children })) {
     my $para = $node->children->[ $i ];
     next unless $self->__is_xformable($para);
-    my @replacements = $self->_expand_list_paras( $para->children );
+    my @replacements = $self->_expand_list_paras( $para );
     splice @{ $node->children }, $i, 1, @replacements;
   }
 }
@@ -201,17 +201,17 @@ my %_TYPE = (
 );
 
 sub _expand_list_paras {
-  my ($self, $paras) = @_;
+  my ($self, $parent) = @_;
   
   my @replacements;
 
   my $type;
   my $i = 1;
 
-  PARA: for my $para (@$paras) {
+  PARA: for my $para (@{ $parent->children }) {
     unless ($para->isa('Pod::Elemental::Element::Pod5::Ordinary')) {
       push @replacements, $self->__is_xformable($para)
-         ? $self->_expand_list_paras($para->children)
+         ? $self->_expand_list_paras($para)
          : $para;
 
       next PARA;
