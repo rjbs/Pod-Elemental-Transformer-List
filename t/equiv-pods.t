@@ -200,6 +200,37 @@ Baz is also important, but compared to Foo, Baz isn't even Bar.
 =back
 END_POD
 
+list_is def_with_custom_indent => <<'END_POD';
+=begin :list :over<6>
+
+= TLA
+Three-letter acronym.
+
+= TBD
+To be defined.
+
+= ETC
+And so on and so forth.
+
+=end :list
+------------------------------------
+=over 6
+
+=item TLA
+
+Three-letter acronym.
+
+=item TBD
+
+To be defined.
+
+=item ETC
+
+And so on and so forth.
+
+=back
+END_POD
+
 list_is nested_complex => <<'END_POD';
 =begin :list
 
@@ -257,6 +288,113 @@ bar
 Bar is also important, and takes options:
 
 =over 4
+
+=item height
+
+It's supplied in in pixels.
+
+=item width
+
+It's supplied in inches.
+
+And those are all of them.
+
+=back
+
+=item 3
+
+baz
+
+Reasons why Baz is important:
+
+=over 4
+
+=item *
+
+it's delicious like L<Net::Delicious>
+
+=item *
+
+it's nutritious
+
+=item *
+
+it's seditious
+
+=back
+
+=over 4
+
+=item bananas
+
+Yellow with a peel.
+
+=item Banderas
+
+Fellow with appeal.
+
+=back
+
+=back
+END_POD
+
+list_is nested_complex_with_custom_indent => <<'END_POD';
+=begin :list :over<3>
+
+1. foo
+
+Foo is an important aspect of foo.
+
+2. bar
+
+Bar is also important, and takes options:
+
+=begin :list :over<8>
+
+= height
+
+It's supplied in in pixels.
+
+= width
+
+It's supplied in inches.
+
+And those are all of them.
+
+=end :list
+
+3. baz
+
+Reasons why Baz is important:
+
+=for :list
+* it's delicious like L<Net::Delicious>
+* it's nutritious
+* it's seditious
+
+=for :list
+= bananas
+Yellow with a peel.
+= Banderas
+Fellow with appeal.
+
+=end :list
+------------------------------------
+=over 3
+
+=item 1
+
+foo
+
+Foo is an important aspect of foo.
+
+=item 2
+
+bar
+
+Bar is also important, and takes options:
+
+=over 8
 
 =item height
 

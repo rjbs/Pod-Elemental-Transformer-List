@@ -36,6 +36,11 @@ specification|perlpodspec> but boils down to this: "for" regions will only be
 able to contain list markers and paragraphs of text, while "begin and end"
 regions can contain arbitrary Pod paragraphs and nested list regions.
 
+All lists have a default C<indentlevel> value of 4.  Adding
+C<< :over<n> >> to a C<=begin :list> definition will result in that list
+having an C<indentlevel> of C<n> instead.  (This functionality is not
+available for lists defined with C<=for :list>.)
+
 Ordinary paragraphs in list regions are scanned for lines beginning with list
 item markers (see below).  If they're found, the list is broken into paragraphs
 and markers.  Here's a demonstrative example:
@@ -177,7 +182,7 @@ sub transform_node {
   for my $i (reverse(0 .. $#{ $node->children })) {
     my $para = $node->children->[ $i ];
     next unless $self->__is_xformable($para);
-    my @replacements = $self->_expand_list_paras( $para->children );
+    my @replacements = $self->_expand_list_paras( $para );
     splice @{ $node->children }, $i, 1, @replacements;
   }
 }
@@ -201,17 +206,17 @@ my %_TYPE = (
 );
 
 sub _expand_list_paras {
-  my ($self, $paras) = @_;
+  my ($self, $parent) = @_;
   
   my @replacements;
 
   my $type;
   my $i = 1;
 
-  PARA: for my $para (@$paras) {
+  PARA: for my $para (@{ $parent->children }) {
     unless ($para->isa('Pod::Elemental::Element::Pod5::Ordinary')) {
       push @replacements, $self->__is_xformable($para)
-         ? $self->_expand_list_paras($para->children)
+         ? $self->_expand_list_paras($para)
          : $para;
 
       next PARA;
@@ -256,9 +261,11 @@ sub _expand_list_paras {
     }
   }
 
+  my $indentlevel = 4;
+  $indentlevel = $1 if $parent->content =~ /:over<(\d+)>/;
   unshift @replacements, Pod::Elemental::Element::Pod5::Command->new({
     command => 'over',
-    content => 4,
+    content => $indentlevel,
   });
 
   push @replacements, Pod::Elemental::Element::Pod5::Command->new({
