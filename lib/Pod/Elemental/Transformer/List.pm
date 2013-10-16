@@ -54,7 +54,7 @@ and markers.  Here's a demonstrative example:
   or maybe it's a golden
   drop of sun
 
-The above is equivalent to 
+The above is equivalent to
 
   =begin :list
 
@@ -106,6 +106,10 @@ a drop of golden sun
 or maybe it's a golden
 drop of sun
 
+=back
+
+I<rendering ends here>
+
 In other words: the B<C<*>> indicates a new bullet.  The rest of the line is
 made into one paragraph, which will become the text of the bullet point when
 rendered.  (Yeah, Pod is weird.)  All subsequent lines without markers will be
@@ -143,6 +147,7 @@ candle
 
 =back
 
+I<rendering ends here>
 
 Definition lists are unusual in that the text on the line after a item marker
 will be used as the bullet, rather than the next paragraph.  So this input:
@@ -180,6 +185,8 @@ Which is rendered as:
 There are more benefits than can be listed here
 
 =back
+
+I<rendering ends here>
 
 If you want to nest lists, you have to make the outer list a begin/end region,
 like this:
@@ -243,7 +250,7 @@ sub __is_xformable {
 
   confess("list regions must be pod (=begin :" . $self->format_name . ")")
     unless $para->is_pod;
-  
+
   return 1;
 }
 
@@ -255,7 +262,7 @@ my %_TYPE = (
 
 sub _expand_list_paras {
   my ($self, $parent) = @_;
-  
+
   my @replacements;
 
   my $type;
@@ -332,7 +339,7 @@ sub __paras_for_num_marker {
       command => 'item',
       content => $i,
     }),
-    $rest, 
+    $rest,
   );
 }
 
@@ -356,7 +363,7 @@ sub __paras_for_bul_marker {
       command => 'item',
       content => '*',
     }),
-    $rest, 
+    $rest,
   );
 }
 
