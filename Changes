@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          allow :over<x> for custom =over indent level (thanks, Alex Peters!)
+
+          update bugtracker and repo
 
 0.101620  2010-06-11 19:41:12 America/New_York
 
