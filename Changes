@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.101621  2013-10-15 21:49:39 America/New_York
           allow :over<x> for custom =over indent level (thanks, Alex Peters!)
 
           add fully rendered examples (thanks, Karen Etheridge!)
