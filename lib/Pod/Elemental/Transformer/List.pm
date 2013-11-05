@@ -112,8 +112,37 @@ I<rendering ends here>
 
 In other words: the B<C<*>> indicates a new bullet.  The rest of the line is
 made into one paragraph, which will become the text of the bullet point when
-rendered.  (Yeah, Pod is weird.)  All subsequent lines without markers will be
-kept together as one paragraph.
+rendered.  (Yeah, Pod is weird.) To continue the text of the bullet point
+on more than one line, start subsequent lines with white space.
+
+  =for :list
+  * this bullet line
+    continues on a second line
+
+Will be transformed into:
+
+  =over 4
+
+  =item *
+
+  this bullet line continues on a second line
+
+  =back
+
+Which renders as:
+
+=over 4
+
+=item *
+
+this bullet line continues on a second line
+
+=back
+
+I<rendering ends here>
+
+All subsequent lines without markers or leading white space will be kept
+together as one paragraph.
 
 Asterisks mark off bullet list items.  Numbered lists are marked off with
 "C<1.>" (or any number followed by a dot).  Equals signs mark off definition
@@ -280,7 +309,8 @@ sub _expand_list_paras {
     my $pip = q{}; # paragraph in progress
     my @lines = split /\n/, $para->content;
 
-    LINE: for my $line (@lines) {
+    LINE: while (@lines) {
+      my $line = shift @lines;
       if (my ($prefix, $rest) = $line =~ m{^(=|\*|(?:[0-9]+\.))\s+(.+)$}) {
         if (length $pip) {
           push @replacements, Pod::Elemental::Element::Pod5::Ordinary->new({
@@ -299,6 +329,11 @@ sub _expand_list_paras {
         my ($marker, $leftover) = $self->$method($rest, $i++);
         push @replacements, $marker;
         if (defined $leftover and length $leftover) {
+          while (@lines && $lines[0] =~ /^\s+/) {
+            my $cont = shift @lines;
+            $cont =~ s/^\s+//;
+            $leftover .= " $cont";
+          }
           push @replacements, Pod::Elemental::Element::Pod5::Ordinary->new({
             content => $leftover,
           });
