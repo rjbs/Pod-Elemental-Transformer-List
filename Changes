@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.102000  2013-11-05 17:37:21 America/New_York
           allow bullet paragraphs to wrap if there's leading whitespace
           (thanks, David Golden!)
 
