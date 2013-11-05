@@ -118,6 +118,37 @@ baz
 =back
 END_POD
 
+list_is bullets_with_wrapping => <<'END_POD';
+=begin :list
+
+* foo
+ continues
+
+* bar
+    continues
+But this is new
+* baz
+
+=end :list
+------------------------------------
+=over 4
+
+=item *
+
+foo continues
+
+=item *
+
+bar continues
+
+But this is new
+
+=item *
+
+baz
+
+=back
+END_POD
 
 list_is tight_num => <<'END_POD';
 =for :list
@@ -183,6 +214,38 @@ Baz is also important, but compared to Foo, Baz isn't even Bar.
 =item 1
 
 foo
+
+Foo is an important aspect of L<Foo::Bar>.  It really is.
+It's hard to explain I<just> how important.
+
+=item 2
+
+bar
+
+=item 3
+
+baz
+
+Baz is also important, but compared to Foo, Baz isn't even Bar.
+
+=back
+END_POD
+
+list_is num_with_wrapping_and_paras => <<'END_POD';
+=for :list
+1. foo
+ continues
+Foo is an important aspect of L<Foo::Bar>.  It really is.
+It's hard to explain I<just> how important.
+2. bar
+3. baz
+Baz is also important, but compared to Foo, Baz isn't even Bar.
+------------------------------------
+=over 4
+
+=item 1
+
+foo continues
 
 Foo is an important aspect of L<Foo::Bar>.  It really is.
 It's hard to explain I<just> how important.
