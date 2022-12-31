@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+        - update packaging and metadata
+        - minimum required Perl is now v5.12
         - tests for various error conditions added (but the code is unchanged)
 
 0.102000  2013-11-05 17:37:21 America/New_York
